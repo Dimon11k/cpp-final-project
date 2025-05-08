@@ -1,1 +1,5 @@
 dmytro|2025-05-08|600|Monthly salary with additional 100$ for better team work.
+max|2025-05-08|500|Bad work this month
+andrew|2025-05-08|200|Good work. Consistency is a way to success
+andrew|2025-05-08|300|You are really good at physik. Keep working in our company.
+bodia|2025-05-08|500|Best design I've ever seen

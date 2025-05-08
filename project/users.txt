@@ -1,2 +1,5 @@
 admin|admin123|Administrator|System Admin|5000|1
 max|12345678|Max Glibko|Frontend Developer|1000|0
+bodia|123456778|Bohdan Denysiak|Designer|400|0
+andrew|12345678|Andrew Brown|Physik Teacher|200|0
+mark|12345678|Mark Manson|Writer|600|0
