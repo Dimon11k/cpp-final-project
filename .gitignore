@@ -1,0 +1,70 @@
+# Build folders
+[Bb]uild/
+[Bb]in/
+[Dd]ebug*/
+[Rr]elease*/
+x64/
+x86/
+ipch/
+*.opensdf
+*.sdf
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+*.VC.db
+*.VC.VC.opendb
+*.VC.VC.opendb.lock
+
+# Visual Studio files
+.vs/
+
+# CMake generated files (if applicable)
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+Makefile
+CTestTestfile.cmake
+*.cmake
+
+# Object files
+*.obj
+*.o
+*.lo
+*.a
+*.lib
+*.dll
+*.exe
+*.so
+*.dylib
+
+# Precompiled headers
+*.pch
+*.gch
+
+# Compiled dynamic libraries
+*.pdb
+*.idb
+
+# Logs and temporary files
+*.log
+*.tmp
+*.tlog
+*.cache
+*.csproj.user
+*.VC.db
+
+# Crash dumps
+*.dmp
+
+# Others
+*.class
+*.psess
+*.vsp
+*.vspx
+*.scc
+
+# Directories for tests or temporary
+test-results/
+out/
+

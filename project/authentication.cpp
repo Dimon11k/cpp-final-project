@@ -1,0 +1,151 @@
+#include "authentication.h"
+#include "fileManager.h"
+#include "userInterface.h"
+#include <iostream>
+#include <regex>
+
+using namespace std;
+
+User* Authentication::login() {
+  UserInterface::showTitle("Login");
+
+  string username, password;
+
+  // ????????? username
+  cout << "Enter username: ";
+  getline(cin, username);
+
+  if (username.empty()) {
+    UserInterface::showMessage("Username cannot be empty.");
+    return nullptr;
+  }
+
+  // ????????? ?????? (?????????? ???? ?????)
+  password = UserInterface::getHiddenInput("Enter password: ");
+
+  if (password.empty()) {
+    UserInterface::showMessage("Password cannot be empty.");
+    return nullptr;
+  }
+
+  // ????????? ??????????? ? "??" (?????)
+  User* user = FileManager::findUserByUsername(username);
+
+  if (!user) {
+    UserInterface::showMessage("User not found.");
+    return nullptr;
+  }
+
+  // ??????????? ??????
+  if (user->getPassword() != password) {
+    UserInterface::showMessage("Incorrect password.");
+    delete user;
+    return nullptr;
+  }
+
+  UserInterface::showMessage("Login successful!");
+  return user;
+}
+
+bool Authentication::registerUser() {
+  UserInterface::showTitle("Register New User");
+
+  string username, password, confirmPassword;
+  string fullName, position;
+  double salary = 0.0;
+
+  // ????????? username
+  cout << "Create username: ";
+  getline(cin, username);
+
+  if (!validateUsername(username)) {
+    UserInterface::showMessage("Username must be at least 3 characters and contain only letters, numbers, and underscores.");
+    return false;
+  }
+
+  // ??????????? ?? username ?????
+  User* existingUser = FileManager::findUserByUsername(username);
+  if (existingUser) {
+    delete existingUser;
+    UserInterface::showMessage("Username already exists.");
+    return false;
+  }
+
+  // ????????? ??????
+  password = UserInterface::getHiddenInput("Create password: ");
+
+  if (!validatePassword(password)) {
+    UserInterface::showMessage("Password must be at least 6 characters long.");
+    return false;
+  }
+
+  // ????????????? ??????
+  confirmPassword = UserInterface::getHiddenInput("Confirm password: ");
+
+  if (password != confirmPassword) {
+    UserInterface::showMessage("Passwords do not match.");
+    return false;
+  }
+
+  // ????????? ????? ??'?
+  cout << "Enter your full name: ";
+  getline(cin, fullName);
+
+  if (fullName.empty()) {
+    UserInterface::showMessage("Full name cannot be empty.");
+    return false;
+  }
+
+  // ???????? ??????? (? ????????, ??????)
+  cout << "Enter your position: ";
+  getline(cin, position);
+
+  if (position.empty()) {
+    UserInterface::showMessage("Position cannot be empty.");
+    return false;
+  }
+
+  // ????????? ????????
+  string salaryStr;
+  cout << "Enter your base salary: $";
+  getline(cin, salaryStr);
+
+  try {
+    salary = stod(salaryStr);
+    if (salary < 0) {
+      UserInterface::showMessage("Salary cannot be negative.");
+      return false;
+    }
+  }
+  catch (...) {
+    UserInterface::showMessage("Invalid salary amount.");
+    return false;
+  }
+
+  // ????????? ??????????? (???????? ??????????? ???? ??????????? ????? ??????????)
+  User newUser(username, password, fullName, position, salary, false);
+
+  if (FileManager::addUser(newUser)) {
+    UserInterface::showMessage("Registration successful! You can now log in.");
+    return true;
+  }
+  else {
+    UserInterface::showMessage("Error creating user account.");
+    return false;
+  }
+}
+
+bool Authentication::validateUsername(const string& username) {
+  // Username ??????? ???? ?????????? 3 ??????? ? ??????? ???? ??????, ?????, ? ????? ???????????? '_'
+  if (username.length() < 3) {
+    return false;
+  }
+
+  regex usernamePattern("^[a-zA-Z0-9_]+$");
+  return regex_match(username, usernamePattern);
+}
+
+bool Authentication::validatePassword(const string& password) {
+  // ?????? ??????? ???? ?????????? 6 ????????
+  return password.length() >= 6;
+}
