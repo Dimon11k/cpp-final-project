@@ -70,28 +70,6 @@ bool FileManager::addUser(const User& user) {
   return result;
 }
 
-bool FileManager::updateUser(const User& user) {
-  vector<string> lines = readFile("users.txt");
-  bool userFound = false;
-
-  for (size_t i = 0; i < lines.size(); ++i) {
-    if (!lines[i].empty()) {
-      User* existingUser = User::fromString(lines[i]);
-      if (existingUser->getUsername() == user.getUsername()) {
-        lines[i] = user.toString();
-        userFound = true;
-      }
-      delete existingUser;
-    }
-  }
-
-  if (userFound) {
-    return writeFile("users.txt", lines);
-  }
-
-  return false; // Користувач не знайдений
-}
-
 bool FileManager::deleteUser(const string& username) {
   vector<string> lines = readFile("users.txt");
   bool userFound = false;

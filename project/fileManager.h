@@ -15,7 +15,6 @@ public:
   static vector<User*> getAllUsers();
   static User* findUserByUsername(const string& username);
   static bool addUser(const User& user);
-  static bool updateUser(const User& user);
   static bool deleteUser(const string& username);
 
   // Загальні файлові методи

@@ -24,7 +24,7 @@ public:
   static void viewAllPayrolls();
   static void viewUserPayrolls(const string& username);
 
-  // Внутрішні методи (ті, які не будуть використовуватися ззовні)
+  // Внутрішні методи (ті, які НЕ будуть використовуватися ззовні)
   static vector<PayrollRecord> getAllPayrolls();
   static vector<PayrollRecord> getUserPayrolls(const string& username);
   static bool addPayrollRecord(const PayrollRecord& record);

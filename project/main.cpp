@@ -67,7 +67,7 @@ int main() {
         string userChoice = UserInterface::showUserMenu();
 
         if (userChoice == "1") {
-          // View profile
+          // Подивитися профіль
           UserInterface::showUserProfile(currentUser);
         }
         else if (userChoice == "2") {
@@ -75,7 +75,7 @@ int main() {
           PayrollManager::viewUserPayrolls(currentUser->getUsername());
         }
         else if (userChoice == "3") {
-          // Log out
+          // Вихід
           delete currentUser;
           currentUser = nullptr;
           UserInterface::showMessage("Logged out successfully.");
@@ -87,7 +87,7 @@ int main() {
     }
   }
 
-  // Cleanup
+  // Очищення
   if (currentUser) {
     delete currentUser;
   }
